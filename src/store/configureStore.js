@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { fromJS } from 'immutable';
-import reducers from 'src/reducers';
+import createReducer from 'src/reducers';
 
 export default function configureStore(initialState = {}, history) {
   // Create the store with two middlewares
@@ -32,9 +32,12 @@ export default function configureStore(initialState = {}, history) {
   /* eslint-enable */
 
   const store = createStore(
-    reducers,
+    createReducer(),
     fromJS(initialState),
-    composeEnhancers(...enhancers),
+    composeEnhancers(...enhancers)
   );
+
+  store.injectedReducers = {}; // Reducer registry
+
   return store;
 };
