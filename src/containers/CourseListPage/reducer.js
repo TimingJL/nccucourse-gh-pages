@@ -3,6 +3,7 @@ import {
   FETCH_COURSES_DATA_LIST,
   SET_SEMESTER_LIST,
   SET_COURSES,
+  SET_EVALUATION,
 } from './constants';
 
 const initialState = fromJS({
@@ -24,13 +25,11 @@ export default (state = initialState, action) => {
     case SET_SEMESTER_LIST:
       return state.set('semesterList', action.payload);
 
-    case SET_COURSES: {
-      const {
-        semester,
-        courses,
-      } = action.payload;
-      return state.setIn(['coursesList', semester, 'courses'], courses);
-    }
+    case SET_COURSES:
+      return state.setIn(['coursesList', action.payload.semester, 'courses'], action.payload.courses);
+
+    case SET_EVALUATION:
+      return state.setIn(['evaluationList', action.payload.semester, 'evaluation'], action.payload.evaluation);
 
     default:
       return state;
