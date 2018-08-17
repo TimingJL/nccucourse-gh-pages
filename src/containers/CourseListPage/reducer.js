@@ -12,7 +12,7 @@ const initialState = fromJS({
   evaluationList: {},
 });
 
-// courses: {
+// coursesList: {
 //   10701: [{...}, {...}, ...],
 //   10702: [{...}, {...}, ...],
 // }

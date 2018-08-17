@@ -5,6 +5,10 @@ import { connect } from 'react-redux';
 import {
   fetchCoursesDataList,
 } from './actions';
+import {
+  selectSemesterList,
+  selectCoursesList,
+} from './selectors';
 
 class CourseListPage extends Component {
   static propTypes = {
@@ -18,19 +22,27 @@ class CourseListPage extends Component {
     const {
       handleFetchCoursesDataList,
     } = this.props;
-    console.log('did mount');
     handleFetchCoursesDataList();
   }
 
   render() {
+    const {
+      semesterList,
+      courseList,
+    } = this.props;
+
     return (
-      <div>ListPage</div>
+      <div>
+        ListPage
+        <div>size: {courseList.size}</div>
+      </div>
     );
   }
 }
 
 const mapStateToProps = createStructuredSelector({
-
+  semesterList: selectSemesterList(),
+  courseList: selectCoursesList(),
 });
 
 const mapDispatchToProps = (dispatch) => ({
