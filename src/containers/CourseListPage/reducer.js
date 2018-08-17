@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 import {
-  INIT,
+  FETCH_COURSES,
 } from './constants';
 
 const initialState = fromJS({
@@ -9,7 +9,8 @@ const initialState = fromJS({
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case INIT:
+    case FETCH_COURSES:
+      console.log('action');
       return initialState;
 
     default:

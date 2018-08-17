@@ -1,1 +1,1 @@
-export const INIT = 'INIT';
+export const FETCH_COURSES = 'FETCH_COURSES';

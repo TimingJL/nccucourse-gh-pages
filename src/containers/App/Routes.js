@@ -5,6 +5,7 @@ import CourseListPage from 'containers/CourseListPage';
 
 export const routePathConfig = {
   splash: '/',
+  courseList: '/courseList',
 };
 
 export default () => (
