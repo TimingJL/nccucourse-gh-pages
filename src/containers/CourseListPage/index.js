@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+// import history from 'src/utils/history';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
+// import Routes from './Routes';
+import CourseList from './CourseList';
 import {
   fetchCoursesDataList,
 } from './actions';
@@ -34,7 +37,10 @@ class CourseListPage extends Component {
     return (
       <div>
         ListPage
-        <div>size: {courseList.size}</div>
+        {
+          courseList.size &&
+          <CourseList semester={semesterList.getIn([0, 'semester'])} courses={courseList.getIn([semesterList.getIn([0, 'semester']), 'courses'])} />
+        }
       </div>
     );
   }

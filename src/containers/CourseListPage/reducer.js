@@ -23,13 +23,13 @@ export default (state = initialState, action) => {
       return initialState;
 
     case SET_SEMESTER_LIST:
-      return state.set('semesterList', action.payload);
+      return state.set('semesterList', fromJS(action.payload));
 
     case SET_COURSES:
-      return state.setIn(['coursesList', action.payload.semester, 'courses'], action.payload.courses);
+      return state.setIn(['coursesList', action.payload.semester, 'courses'], fromJS(action.payload.courses));
 
     case SET_EVALUATION:
-      return state.setIn(['evaluationList', action.payload.semester, 'evaluation'], action.payload.evaluation);
+      return state.setIn(['evaluationList', action.payload.semester, 'evaluation'], fromJS(action.payload.evaluation));
 
     default:
       return state;

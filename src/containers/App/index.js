@@ -5,12 +5,12 @@ import {
 } from './Styled';
 import Routes from './Routes';
 
-// import NavigationBar from './NavigationBar';
+import NavigationBar from './NavigationBar';
 
 const App = () => {
   return (
     <AppWrapper>
-      {/* <NavigationBar /> */}
+      <NavigationBar />
       <div className={'app-wrapper__content'}>
         <Routes />
       </div>
