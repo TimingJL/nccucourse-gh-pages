@@ -7,9 +7,11 @@ import { StyledCourseList } from './Styled';
 class CourseList extends Component {
   static propTypes = {
     dataList: PropTypes.object,
+    currentPage: PropTypes.number,
   }
   static defaultProps = {
     dataList: null,
+    currentPage: 1,
   }
   // componentDidMount() {
   //   const {
@@ -22,14 +24,15 @@ class CourseList extends Component {
     const {
       dataList,
       rowRange,
+      currentPage,
     } = this.props;
-    if (dataList || dataList.size) {
-      console.log(dataList.slice(0,5).toJS());
-    }
+    const end = currentPage*rowRange;
+    const start = end - rowRange;
+
     return (
       <StyledCourseList>
         {
-          dataList.slice(0, rowRange).map((course) => (
+          dataList.slice(start, end).map((course) => (
             <li key={course.get('id')} className="course-list__row">
               <div className="course-list__info">
                 <div className="course-list__id">{course.get('id')}</div>

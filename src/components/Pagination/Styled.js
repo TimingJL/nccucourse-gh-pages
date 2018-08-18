@@ -18,6 +18,7 @@ export const StyledPagination = styled.div`
   .pagination__pageselect-container {
     display: grid;
     justify-content: right;
+    margin: 10px 10px;
   }
 
   .pagination__pageselect {
@@ -36,7 +37,7 @@ export const StyledDropdown = styled.div`
 
   .dropdown__container {
     position: relative;
-    overflow: scroll;
+    overflow-y: scroll;
     height: 300px;
   }
 
