@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import message from 'antd/lib/message';
 // import history from 'src/utils/history';
 // import { routePathConfig } from 'containers/RoutePathConfig';
+import { findAttributeInEvent } from 'src/utils/event';
 import { StyledCourseList } from './Styled';
 
 class CourseList extends Component {
+  constructor(props) {
+    super(props);
+    this.handleOnCourseIdCopy = this.handleOnCourseIdCopy.bind(this);
+  }
   static propTypes = {
     dataList: PropTypes.object,
     currentPage: PropTypes.number,
@@ -13,12 +19,13 @@ class CourseList extends Component {
     dataList: null,
     currentPage: 1,
   }
-  // componentDidMount() {
-  //   const {
-  //     semester,
-  //   } = this.props;
-  //   history.push(`${routePathConfig.courseList}/${semester}`);
-  // }
+
+  handleOnCourseIdCopy(event) {
+    const courseId = findAttributeInEvent(event, 'data-courseid');
+    event.currentTarget.select();
+    document.execCommand("copy");
+    message.success(`${courseId} Copied!`);
+  }
 
   render() {
     const {
@@ -35,11 +42,10 @@ class CourseList extends Component {
           dataList.slice(start, end).map((course) => (
             <li key={course.get('id')} className="course-list__row">
               <div className="course-list__info">
-                <div className="course-list__id">{course.get('id')}</div>
+                <input readOnly className="course-list__id" data-courseid={course.get('id')} value={course.get('id')} onClick={this.handleOnCourseIdCopy} />
                 <div className="course-list__name">{course.get('name')}</div>
                 <div className="course-list__instructor">{course.get('instructor')}</div>
               </div>
-              <div></div>
             </li>
           ))
         }

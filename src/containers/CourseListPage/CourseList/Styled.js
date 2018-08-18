@@ -9,15 +9,23 @@ export const StyledCourseList = styled.ul`
   .course-list__row {
     border-bottom: 1px solid #f1f1f1;
     padding: 0px 15px;
+    cursor: pointer;
+    &:hover {
+      background: #f7f7f7;
+    }
 
     .course-list__info {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: minmax(100px, 1fr) 1.3fr 1fr;
       align-items: center;
       height: 50px;
 
       .course-list__id {
-
+        line-height: 50px;
+        border: none;
+        font-size: 1em;
+        cursor: pointer;
+        background: rgba(0,0,0,0);
       }
 
       .course-list__name {
