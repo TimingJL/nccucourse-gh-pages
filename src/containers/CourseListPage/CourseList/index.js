@@ -6,12 +6,10 @@ import { StyledCourseList } from './Styled';
 
 class CourseList extends Component {
   static propTypes = {
-    semester: PropTypes.string,
-    courses: PropTypes.object,
+    dataList: PropTypes.object,
   }
   static defaultProps = {
-    semester: "",
-    courses: null,
+    dataList: null,
   }
   // componentDidMount() {
   //   const {
@@ -22,18 +20,16 @@ class CourseList extends Component {
 
   render() {
     const {
-      semester,
-      courses,
+      dataList,
+      rowRange,
     } = this.props;
-    if (courses.size) {
-      console.log('semester: ', semester);
-      console.log(courses.slice(0,5).toJS());
+    if (dataList || dataList.size) {
+      console.log(dataList.slice(0,5).toJS());
     }
     return (
       <StyledCourseList>
-        {semester}
         {
-          courses.slice(0, 10).map((course) => (
+          dataList.slice(0, rowRange).map((course) => (
             <li key={course.get('id')} className="course-list__row">
               <div className="course-list__info">
                 <div className="course-list__id">{course.get('id')}</div>
