@@ -12,6 +12,9 @@ import {
   selectSemesterList,
   selectCoursesList,
 } from './selectors';
+import {
+  StyledCourseListPage,
+} from './Styled';
 
 class CourseListPage extends Component {
   static propTypes = {
@@ -35,13 +38,12 @@ class CourseListPage extends Component {
     } = this.props;
 
     return (
-      <div>
-        ListPage
+      <StyledCourseListPage>
         {
           courseList.size &&
           <CourseList semester={semesterList.getIn([0, 'semester'])} courses={courseList.getIn([semesterList.getIn([0, 'semester']), 'courses'])} />
         }
-      </div>
+      </StyledCourseListPage>
     );
   }
 }

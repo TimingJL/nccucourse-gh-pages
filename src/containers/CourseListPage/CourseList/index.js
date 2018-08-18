@@ -31,10 +31,16 @@ class CourseList extends Component {
     }
     return (
       <StyledCourseList>
+        {semester}
         {
           courses.slice(0, 10).map((course) => (
             <li key={course.get('id')} className="course-list__row">
-              {course.get('name')}
+              <div className="course-list__info">
+                <div className="course-list__id">{course.get('id')}</div>
+                <div className="course-list__name">{course.get('name')}</div>
+                <div className="course-list__instructor">{course.get('instructor')}</div>
+              </div>
+              <div></div>
             </li>
           ))
         }
