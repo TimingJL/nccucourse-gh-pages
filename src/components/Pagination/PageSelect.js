@@ -6,9 +6,13 @@ import { findAttributeInEvent } from 'src/utils/event';
 class PageSelect extends Component {
   static propTypes = {
     pageRange: PropTypes.number,
+    currentPage: PropTypes.number,
+    handleOnPageSelect: PropTypes.func,
   };
   static defaultProps = {
     pageRange: 1,
+    currentPage: 1,
+    handleOnPageSelect: () => {},
   };
   constructor(props) {
     super(props);
@@ -21,22 +25,26 @@ class PageSelect extends Component {
   }
 
   handleOnDropdownOpen() {
-    this.setState({isDropdownOpwn: true});
+    this.setState({ isDropdownOpwn: true });
   }
 
   handleOnDropdownClose() {
-    this.setState({isDropdownOpwn: false});
+    this.setState({ isDropdownOpwn: false });
   }
 
   handleOnPageNumberClicked(event) {
+    const {
+      handleOnPageSelect,
+    } = this.props;
     const clickedPageNumber = findAttributeInEvent(event, 'data-pagenumber');
-    console.log('page: ', clickedPageNumber);
-    this.setState({isDropdownOpwn: false});
+    this.setState({ isDropdownOpwn: false });
+    handleOnPageSelect(clickedPageNumber);
   }
 
   render() {
     const {
       pageRange,
+      currentPage,
     } = this.props;
     const {
       isDropdownOpwn,
@@ -45,25 +53,32 @@ class PageSelect extends Component {
 
     return (
       <div
+        className="pagination__pageselect"
         onMouseOver={this.handleOnDropdownOpen}
         onMouseLeave={this.handleOnDropdownClose}
       >
-        <div className="page-select__dropdown">{pageRange}</div>
+        <div className="pagination__dropdown">
+          {currentPage}
+          <i className="fas fa-caret-down pagination__dropdown-icon" />
+        </div>
         {
           isDropdownOpwn &&
           <StyledDropdown>
-            {
-              pages.map((number) => (
-                <div
-                  key={number}
-                  data-pagenumber={number}
-                  className="dropdown__option"
-                  onClick={this.handleOnPageNumberClicked}
-                >
-                  {number}
-                </div>
-              ))
-            }
+            <div className="dropdown__container">
+              {
+                pages.map((number) => (
+                  <div
+                    key={number}
+                    data-pagenumber={number}
+                    className="dropdown__option"
+                    onClick={this.handleOnPageNumberClicked}
+                  >
+                    {number}
+                  </div>
+                ))
+              }
+            </div>
+
           </StyledDropdown>
         }
       </div>

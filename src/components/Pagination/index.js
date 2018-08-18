@@ -2,24 +2,42 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import PageSelect from './PageSelect';
 import {
-  StyledPageSelect,
+  StyledPagination,
 } from './Styled';
 
 const Pagination = (ListComponent) => class extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentPage: 1,
+    }
+    this.handleOnPageSelect = this.handleOnPageSelect.bind(this);
+  }
+  handleOnPageSelect(clickedPageNumber) {
+    this.setState({
+      currentPage: Number(clickedPageNumber),
+    });
+  }
+
   render() {
     const {
       dataList,
       rowRange,
     } = this.props;
+    const {
+      currentPage,
+    } = this.state;
     const pageRange = Math.ceil(dataList.size/rowRange);
 
     return(
-      <StyledPageSelect>
+      <StyledPagination>
         <div>List Size: {dataList.size}</div>
         <div>Row Range: {rowRange}</div>
-        <PageSelect pageRange={pageRange} />
+        <div className="pagination__pageselect-container">
+          <PageSelect pageRange={pageRange} currentPage={currentPage} handleOnPageSelect={this.handleOnPageSelect} />
+        </div>
         <ListComponent dataList={dataList} rowRange={rowRange} />
-      </StyledPageSelect>
+      </StyledPagination>
     );
   }
 }
