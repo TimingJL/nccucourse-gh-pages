@@ -17,5 +17,6 @@ export const AppWrapper = styled.div`
 
   .app-wrapper__content {
     grid-area: content;
+    overflow-y: scroll;
   }
 `;
