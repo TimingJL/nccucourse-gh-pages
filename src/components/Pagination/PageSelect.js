@@ -18,7 +18,7 @@ class PageSelect extends Component {
     super(props);
     this.state = {
       isDropdownOpwn: false,
-    }
+    };
     this.handleOnDropdownOpen = this.handleOnDropdownOpen.bind(this);
     this.handleOnDropdownClose = this.handleOnDropdownClose.bind(this);
     this.handleOnPageNumberClicked = this.handleOnPageNumberClicked.bind(this);
@@ -78,7 +78,6 @@ class PageSelect extends Component {
                 ))
               }
             </div>
-
           </StyledDropdown>
         }
       </div>

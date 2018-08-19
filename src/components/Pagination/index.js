@@ -35,8 +35,7 @@ const Pagination = (ListComponent) => class extends Component {
           <PageSelect pageRange={pageRange} currentPage={currentPage} handleOnPageSelect={this.handleOnPageSelect} />
         </div>
         <ListComponent
-          dataList={dataList}
-          rowRange={rowRange}
+          {...this.props}
           currentPage={currentPage}
         />
       </StyledPagination>

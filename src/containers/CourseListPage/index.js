@@ -30,8 +30,11 @@ class CourseListPage extends Component {
   componentDidMount() {
     const {
       handleFetchCoursesDataList,
+      courseList,
     } = this.props;
-    handleFetchCoursesDataList();
+    if (!courseList.size) {
+      handleFetchCoursesDataList();
+    }
   }
 
   render() {
@@ -49,6 +52,7 @@ class CourseListPage extends Component {
           <PaginatedCourseList
             dataList={courses}
             rowRange={25}
+            semester={semester}
           />
         }
       </StyledCourseListPage>

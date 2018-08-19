@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import message from 'antd/lib/message';
-// import history from 'src/utils/history';
+import history from 'src/utils/history';
 // import { routePathConfig } from 'containers/RoutePathConfig';
 import { findAttributeInEvent } from 'src/utils/event';
 import { StyledCourseList } from './Styled';
@@ -10,6 +10,7 @@ class CourseList extends Component {
   constructor(props) {
     super(props);
     this.handleOnCourseIdCopy = this.handleOnCourseIdCopy.bind(this);
+    this.handleOnCourseClicked = this.handleOnCourseClicked.bind(this);
   }
   static propTypes = {
     dataList: PropTypes.object,
@@ -27,6 +28,24 @@ class CourseList extends Component {
     message.success(`${courseId} Copied!`);
   }
 
+  handleOnCourseClicked(event) {
+    const {
+      semester,
+    } = this.props;
+    const dataType = findAttributeInEvent(event, 'data-type');
+    if (dataType === 'row'){
+      const courseId = findAttributeInEvent(event, 'data-courseid');
+      // console.log(window.location.pathname);
+      history.push({
+        pathname: `${window.location.pathname}/${courseId}`,
+        state: {
+          courseid: courseId,
+          semester: semester,
+        },
+      });
+    }
+  }
+
   render() {
     const {
       dataList,
@@ -40,9 +59,9 @@ class CourseList extends Component {
       <StyledCourseList>
         {
           dataList.slice(start, end).map((course) => (
-            <li key={course.get('id')} className="course-list__row">
+            <li key={course.get('id')} data-type="row" className="course-list__row" data-courseid={course.get('id')} onClick={this.handleOnCourseClicked}>
               <div className="course-list__info">
-                <input readOnly className="course-list__id" data-courseid={course.get('id')} value={course.get('id')} onClick={this.handleOnCourseIdCopy} />
+                <input readOnly data-type="courseid" className="course-list__id" data-courseid={course.get('id')} value={course.get('id')} onClick={this.handleOnCourseIdCopy} />
                 <div className="course-list__name">{course.get('name')}</div>
                 <div className="course-list__instructor">{course.get('instructor')}</div>
               </div>

@@ -8,7 +8,13 @@ export const StyledNavigationBar = styled.div`
     background: ${NAVIGATION_BAR_BACKGROUND_COLOR};
     height: ${NAVIGATION_BAR_HEIGHT};
     display: flex;
+    justify-content: center;
     align-items: center;
+
+    .navigation-bar__navbar-wrapper {
+        display: grid;
+        grid-template-columns: minmax(min-content,1012px);
+    }
 
     .navigation-bar__branding {
         color: white;
