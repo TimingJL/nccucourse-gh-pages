@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import history from 'src/utils/history';
+import { routePathConfig } from 'containers/RoutePathConfig';
 import { StyledNavigationBar } from './Styled';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
@@ -54,6 +55,7 @@ class NavigationBar extends Component {
       });
 
     history.push({
+      pathname: routePathConfig.courseList,
       search: searchParam,
     });
   }
