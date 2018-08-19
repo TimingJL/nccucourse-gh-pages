@@ -9,13 +9,14 @@ const Pagination = (ListComponent) => class extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: 1, // default current page number
+      defaultCurrentPage: 1, // default current page number
     }
     this.handleOnPageSelect = this.handleOnPageSelect.bind(this);
   }
+
   handleOnPageSelect(clickedPageNumber) {
     this.setState({
-      currentPage: Number(clickedPageNumber),
+      defaultCurrentPage: Number(clickedPageNumber),
     });
   }
 
@@ -25,9 +26,10 @@ const Pagination = (ListComponent) => class extends Component {
       rowRange,
     } = this.props;
     const {
-      currentPage,
+      defaultCurrentPage,
     } = this.state;
     const pageRange = Math.ceil(dataList.size/rowRange);
+    const currentPage = (defaultCurrentPage > pageRange ? 1 : defaultCurrentPage);
 
     return(
       <StyledPagination>

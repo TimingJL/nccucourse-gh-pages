@@ -55,22 +55,22 @@ class CourseListPage extends Component {
     semesterList: PropTypes.object,
     courseList: PropTypes.object,
     searchParams: PropTypes.object,   // List
-    handleFetchCourse: PropTypes.func,
+    fetchCoursesDataList: PropTypes.func,
   }
   static defaultProps = {
     semesterList: null,
     courseList: null,
     searchParams: null,
-    handleFetchCoursesDataList: () => { },
+    fetchCoursesDataList: () => { },
   }
 
   componentDidMount() {
     const {
-      handleFetchCoursesDataList,
+      fetchCoursesDataList,
       courseList,
     } = this.props;
     if (!courseList.size) {
-      handleFetchCoursesDataList();
+      fetchCoursesDataList();
     }
   }
 
@@ -105,7 +105,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleFetchCoursesDataList: () => dispatch(fetchCoursesDataList()),
+  fetchCoursesDataList: () => dispatch(fetchCoursesDataList()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseListPage);
