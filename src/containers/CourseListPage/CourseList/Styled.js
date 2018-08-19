@@ -22,6 +22,7 @@ export const StyledCourseList = styled.ul`
 
       .course-list__id {
         line-height: 50px;
+        width: 100px;
         border: none;
         font-size: 1em;
         cursor: pointer;

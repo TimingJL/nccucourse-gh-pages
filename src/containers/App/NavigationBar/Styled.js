@@ -14,6 +14,15 @@ export const StyledNavigationBar = styled.div`
     .navigation-bar__navbar-wrapper {
         display: grid;
         grid-template-columns: minmax(min-content,1012px);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .navigation-bar__navbar-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-content: center;
+        align-items: center;
     }
 
     .navigation-bar__branding {
@@ -27,6 +36,59 @@ export const StyledNavigationBar = styled.div`
             font-family: 'Francois One', sans-serif;
             color: #5383d3;
             font-size: 25px;
+        }
+    }
+
+    .navigation-bar__search-wrapper {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .navigation-bar__search-input-box {
+        width: 100px;
+        transition: all 0.5s ease-out;
+        &:focus {
+            width: 100%;
+            background: #f7f7f729;
+            border-bottom: 2px solid white;
+        }
+
+        background: ${NAVIGATION_BAR_BACKGROUND_COLOR};
+        border: none;
+        outline: none;
+        border-bottom: 2px solid #9a9a9a;
+        padding: 5px 10px;
+        color: white;
+    }
+
+    .navigation-bar__search-icon {
+        color: white;
+        font-size: 1.7em;
+        margin: 0px 15px 0px 5px;
+        text-align: right;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .navigation-bar__navbar-grid {
+            ${(props) => {
+                if (props.isFocus) {
+                    return `
+                        grid-template-columns: 1fr;
+                        padding-left: 15px;
+                    `;
+                }
+            }}
+        }
+
+        .navigation-bar__branding {
+            ${(props) => {
+                if (props.isFocus) {
+                    return 'display: none;';
+                } else {
+                    return 'display: true;';
+                }
+            }}
         }
     }
 `;
