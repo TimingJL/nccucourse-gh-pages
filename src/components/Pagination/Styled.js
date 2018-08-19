@@ -38,7 +38,7 @@ export const StyledDropdown = styled.div`
   .dropdown__container {
     position: relative;
     overflow-y: scroll;
-    height: 300px;
+    max-height: 300px;
   }
 
   .dropdown__option {
