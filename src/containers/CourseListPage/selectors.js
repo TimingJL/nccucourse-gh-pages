@@ -11,3 +11,8 @@ export const selectCoursesList = () => createSelector(
   courseListPageStore,
   (state) => state.get('coursesList')
 );
+
+export const selectSearchParam = () => createSelector(
+  courseListPageStore,
+  (state) => state.get('searchParam')
+);

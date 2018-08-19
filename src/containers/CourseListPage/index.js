@@ -12,6 +12,7 @@ import {
 import {
   selectSemesterList,
   selectCoursesList,
+  selectSearchParam,
 } from './selectors';
 import {
   StyledCourseListPage,
@@ -19,11 +20,47 @@ import {
 
 const PaginatedCourseList = Pagination(CourseList);
 
+const coursesFilter = (courseList, semester, searchParams) => {
+  if (searchParams.size) {
+    const result = courseList.getIn([semester, 'courses'])
+      .filter((course) => {
+        const matchArr = searchParams.map((param) => (
+          (course.get('id').indexOf(param) > -1) ||
+          (course.get('instructor').indexOf(param) > -1) ||
+          (course.get('instructor_eng').indexOf(param.toUpperCase()) > -1) ||
+          (course.get('name').indexOf(param) > -1) ||
+          (course.get('asgeneral').indexOf(param) > -1) ||
+          (course.get('change').indexOf(param) > -1) ||
+          (course.get('choose').indexOf(param) > -1) ||
+          (course.get('choose_eng').indexOf(param.toUpperCase()) > -1) ||
+          (course.get('name_eng').indexOf(param.toUpperCase()) > -1) ||
+          (course.get('coregeneral').indexOf(param) > -1) ||
+          (course.get('department').indexOf(param) > -1) ||
+          (course.get('generalclass').indexOf(param) > -1) ||
+          (course.get('language').indexOf(param) > -1) ||
+          (course.get('note').indexOf(param) > -1) ||
+          (course.get('place').indexOf(param) > -1) ||
+          (course.get('session_class').indexOf(param) > -1) ||
+          (course.get('session_weekday').indexOf(param) > -1)
+        ));
+        return !matchArr.toJS().includes(false);
+      })
+    return result;
+  }
+  return courseList.getIn([semester, 'courses']);
+}
+
 class CourseListPage extends Component {
   static propTypes = {
+    semesterList: PropTypes.object,
+    courseList: PropTypes.object,
+    searchParams: PropTypes.object,   // List
     handleFetchCourse: PropTypes.func,
   }
   static defaultProps = {
+    semesterList: null,
+    courseList: null,
+    searchParams: null,
     handleFetchCoursesDataList: () => { },
   }
 
@@ -41,9 +78,10 @@ class CourseListPage extends Component {
     const {
       semesterList,
       courseList,
+      searchParams,
     } = this.props;
     const semester = semesterList.getIn([0, 'semester']);
-    const courses = courseList.getIn([semester, 'courses']);
+    const courses = coursesFilter(courseList, semester, searchParams);
 
     return (
       <StyledCourseListPage>
@@ -63,6 +101,7 @@ class CourseListPage extends Component {
 const mapStateToProps = createStructuredSelector({
   semesterList: selectSemesterList(),
   courseList: selectCoursesList(),
+  searchParams: selectSearchParam(),
 });
 
 const mapDispatchToProps = (dispatch) => ({

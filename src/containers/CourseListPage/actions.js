@@ -2,9 +2,11 @@ import {
   FETCH_COURSES_DATA_LIST,
   FETCH_COURSES,
   FETCH_EVALUATION,
+  FETCH_SEARCH_PARAM,
   SET_SEMESTER_LIST,
   SET_COURSES,
   SET_EVALUATION,
+  SET_SEARCH_PARAM,
 } from './constants';
 
 export const fetchCoursesDataList = () => ({
@@ -44,4 +46,18 @@ export const setEvaluation = ({semester, evaluation}) => ({
 export const setSemesterList = (semesterList) => ({
   type: SET_SEMESTER_LIST,
   payload: semesterList,
+});
+
+export const fetchSearchParam = (param) => ({
+  type: FETCH_SEARCH_PARAM,
+  payload: {
+    param,
+  },
+});
+
+export const setSearchParam = (param) => ({
+  type: SET_SEARCH_PARAM,
+  payload: {
+    param,
+  },
 });

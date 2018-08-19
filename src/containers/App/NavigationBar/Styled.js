@@ -20,7 +20,7 @@ export const StyledNavigationBar = styled.div`
 
     .navigation-bar__navbar-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 2fr;
         justify-content: center;
         align-items: center;
     }

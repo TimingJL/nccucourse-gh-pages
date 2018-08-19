@@ -6,6 +6,7 @@ import {
   FETCH_COURSES_DATA_LIST,
   FETCH_COURSES,
   FETCH_EVALUATION,
+  FETCH_SEARCH_PARAM,
 } from './constants';
 
 import {
@@ -14,6 +15,7 @@ import {
   setSemesterList,
   setCourses,
   setEvaluation,
+  setSearchParam,
 } from './actions';
 
 const fetchCoursesDataListEpic = (action$) => (
@@ -76,9 +78,21 @@ const fetchEvaluationDataEpic = (action$) => (
     })
 );
 
+const fetchSearchParamEpic = (action$) => (
+  action$.ofType(FETCH_SEARCH_PARAM)
+    .debounceTime(500 /* ms */)
+    .switchMap(({ payload }) => {
+      const {
+        param,
+      } = payload;
+      return Observable.of(setSearchParam(param));
+    })
+);
+
 export default [
   fetchCoursesDataListEpic,
   fetchCoursesDataEpic,
   fetchEvaluationDataEpic,
+  fetchSearchParamEpic,
 ];
 

@@ -11,7 +11,7 @@ export const StyledCourseList = styled.ul`
     padding: 0px 15px;
     cursor: pointer;
     &:hover {
-      background: #f7f7f7;
+      background: #1890ff14;
     }
 
     .course-list__info {

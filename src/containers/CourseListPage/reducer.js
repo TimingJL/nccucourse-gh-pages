@@ -4,12 +4,14 @@ import {
   SET_SEMESTER_LIST,
   SET_COURSES,
   SET_EVALUATION,
+  SET_SEARCH_PARAM,
 } from './constants';
 
 const initialState = fromJS({
   semesterList: [],
   coursesList: {},
   evaluationList: {},
+  searchParam: [],
 });
 
 // coursesList: {
@@ -30,6 +32,9 @@ export default (state = initialState, action) => {
 
     case SET_EVALUATION:
       return state.setIn(['evaluationList', action.payload.semester, 'evaluation'], fromJS(action.payload.evaluation));
+
+    case SET_SEARCH_PARAM:
+      return state.set('searchParam', fromJS(action.payload.param));
 
     default:
       return state;

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import message from 'antd/lib/message';
 import history from 'src/utils/history';
-// import { routePathConfig } from 'containers/RoutePathConfig';
 import { findAttributeInEvent } from 'src/utils/event';
 import { StyledCourseList } from './Styled';
 
@@ -35,7 +34,6 @@ class CourseList extends Component {
     const dataType = findAttributeInEvent(event, 'data-type');
     if (dataType === 'row'){
       const courseId = findAttributeInEvent(event, 'data-courseid');
-      // console.log(window.location.pathname);
       history.push({
         pathname: `${window.location.pathname}/${courseId}`,
         state: {
@@ -58,8 +56,8 @@ class CourseList extends Component {
     return (
       <StyledCourseList>
         {
-          dataList.slice(start, end).map((course) => (
-            <li key={course.get('id')} data-type="row" className="course-list__row" data-courseid={course.get('id')} onClick={this.handleOnCourseClicked}>
+          dataList.slice(start, end).map((course, index) => (
+            <li key={`${course.get('id')}/${index}`} data-type="row" className="course-list__row" data-courseid={course.get('id')} onClick={this.handleOnCourseClicked}>
               <div className="course-list__info">
                 <input readOnly data-type="courseid" className="course-list__id" data-courseid={course.get('id')} value={course.get('id')} onClick={this.handleOnCourseIdCopy} />
                 <div className="course-list__name">{course.get('name')}</div>
