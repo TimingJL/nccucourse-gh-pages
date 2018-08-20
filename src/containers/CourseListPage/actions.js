@@ -48,16 +48,17 @@ export const setSemesterList = (semesterList) => ({
   payload: semesterList,
 });
 
-export const fetchSearchParam = (param) => ({
+export const fetchSearchParam = (params, semester) => ({
   type: FETCH_SEARCH_PARAM,
   payload: {
-    param,
+    params,
+    semester,
   },
 });
 
-export const setSearchParam = (param) => ({
+export const setSearchParam = (params) => ({
   type: SET_SEARCH_PARAM,
   payload: {
-    param,
+    params,
   },
 });

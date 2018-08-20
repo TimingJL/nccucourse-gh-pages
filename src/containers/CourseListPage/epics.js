@@ -1,6 +1,8 @@
 import { Observable } from 'rxjs/Rx';
 import { COURSE_DATA_DOMAIN } from 'src/config';
 import { request, fetchErrorEpic } from 'src/utils/request';
+import history from 'src/utils/history';
+import { routePathConfig } from 'containers/RoutePathConfig';
 
 import {
   FETCH_COURSES_DATA_LIST,
@@ -26,6 +28,13 @@ const fetchCoursesDataListEpic = (action$) => (
         url: `${COURSE_DATA_DOMAIN}/index.json`,
       })
         .flatMap((semesterList) => { // semesterList = [{semester: "10701"}, {...},...]
+          const defaultSemester = Math.max(...semesterList.map((item) => item.semester));
+          history.push({
+            pathname: `${routePathConfig.semester}/${defaultSemester}`,
+            state: {
+              semester: defaultSemester.toString(),
+            },
+          });
           const fetchCoursesActions = semesterList.map((item) => fetchCourses(item.semester));
           const fetchEvaluationActions = semesterList.map((item) => fetchEvaluation(item.semester));
           return Observable.of(
@@ -83,9 +92,27 @@ const fetchSearchParamEpic = (action$) => (
     .debounceTime(500 /* ms */)
     .switchMap(({ payload }) => {
       const {
-        param,
+        params,
+        semester,
       } = payload;
-      return Observable.of(setSearchParam(param));
+      let searchParam = '?';
+      params.map((param) => `search=${param}`)
+        .forEach((param, index) => {
+          if (index === 0) {
+            searchParam = searchParam.concat(param);
+          } else {
+            searchParam = searchParam.concat(`&${param}`);
+          }
+        });
+
+      history.push({
+        pathname: `${routePathConfig.semester}/${semester}`,
+        state: {
+          semester,
+        },
+        search: searchParam,
+      });
+      return Observable.of(setSearchParam(params));
     })
 );
 

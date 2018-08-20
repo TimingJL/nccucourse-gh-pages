@@ -1,5 +1,6 @@
 export const routePathConfig = {
   splash: '/',
-  courseDetail: '/g/user/courseList/:courseid',
-  courseList: '/g/user/courseList',
+  courseDetail: '/g/user/courseList/:semester/:courseid',
+  courseList: '/g/user/courseList/:semester',
+  semester: '/g/user/courseList',
 };

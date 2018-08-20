@@ -13,8 +13,8 @@ class CourseDetailPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      semester: window.history.state.state.semester,
-      courseId: window.history.state.state.courseid,
+      semester: props.match.params.semester,
+      courseId: props.match.params.courseid,
       course: null,
     };
     this.handleOnPageOpen = this.handleOnPageOpen.bind(this);
@@ -47,13 +47,12 @@ class CourseDetailPage extends Component {
 
   render() {
     const {
-      // semesterList,
       course,
     } = this.state;
     if (!course) {
       return null;
     }
-    console.log(course.toJS());
+    // console.log(course.toJS());
 
     return (
       <StyledCourseDetailPage>

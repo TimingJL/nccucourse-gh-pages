@@ -34,7 +34,7 @@ export default (state = initialState, action) => {
       return state.setIn(['evaluationList', action.payload.semester, 'evaluation'], fromJS(action.payload.evaluation));
 
     case SET_SEARCH_PARAM:
-      return state.set('searchParam', fromJS(action.payload.param));
+      return state.set('searchParam', fromJS(action.payload.params));
 
     default:
       return state;

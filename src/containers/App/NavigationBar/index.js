@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import history from 'src/utils/history';
-import { routePathConfig } from 'containers/RoutePathConfig';
 import { StyledNavigationBar } from './Styled';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
@@ -39,25 +37,12 @@ class NavigationBar extends Component {
   handleOnSearchInput(event) {
     const {
       handleOnFetchSearchParam,
+      location,
     } = this.props;
     const inputValue = event.currentTarget.value;
     const params = inputValue.split(" ").filter((item) => Boolean(item));
-    handleOnFetchSearchParam(params);
-
-    let searchParam = '?';
-    params.map((param) => `search=${param}`)
-      .forEach((param, index) => {
-        if (index === 0) {
-          searchParam = searchParam.concat(param);
-        } else {
-          searchParam = searchParam.concat(`&${param}`);
-        }
-      });
-
-    history.push({
-      pathname: routePathConfig.courseList,
-      search: searchParam,
-    });
+    const semester = location.state.semester;
+    handleOnFetchSearchParam(params, semester);
   }
 
   render() {
@@ -89,14 +74,12 @@ class NavigationBar extends Component {
   }
 }
 
-// export default NavigationBar;
-
 const mapStateToProps = createStructuredSelector({
 
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleOnFetchSearchParam: (param) => dispatch(fetchSearchParam(param)),
+  handleOnFetchSearchParam: (params, semester) => dispatch(fetchSearchParam(params, semester)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar);
