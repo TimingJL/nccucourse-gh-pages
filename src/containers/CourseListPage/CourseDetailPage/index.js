@@ -7,7 +7,7 @@ import {
   selectCoursesList,
 } from 'containers/CourseListPage/selectors';
 import { routePathConfig } from 'containers/RoutePathConfig';
-import { StyledCourseDetailPage } from './Styled';
+import { StyledCourseDetailPage, Button } from './Styled';
 
 class CourseDetailPage extends Component {
   constructor(props) {
@@ -17,6 +17,7 @@ class CourseDetailPage extends Component {
       courseId: window.history.state.state.courseid,
       course: null,
     };
+    this.handleOnPageOpen = this.handleOnPageOpen.bind(this);
   }
 
   componentDidMount() {
@@ -35,6 +36,13 @@ class CourseDetailPage extends Component {
     this.setState({
       course: courseList.getIn([semester, 'courses']).filter((course) => course.get('id') === courseId).get(0),
     });
+  }
+
+  handleOnPageOpen() {
+    const {
+      course,
+    } = this.state;
+    window.open(course.get('agenda'));
   }
 
   render() {
@@ -117,6 +125,10 @@ class CourseDetailPage extends Component {
         <div className="course-detail__row">
           <div className="course-detail__label">異動資訊</div>
           <div className="course-detail__value">{course.get('change')}</div>
+        </div>
+
+        <div className="course-detail__button-container">
+          <Button onClick={this.handleOnPageOpen}><span>教學大綱</span></Button>
         </div>
       </StyledCourseDetailPage>
     );

@@ -32,4 +32,51 @@ export const StyledCourseDetailPage = styled.div`
   .course-detail__value {
 
   }
+
+  .course-detail__button-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 20px 0px;
+  }
 `;
+
+export const Button = styled.button`
+  display: inline-block;
+  width: 300px;
+  height: 50px;
+  background: #22c0ff44;
+  position: relative;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  span{
+    font-size: 1.2em;
+    color: #0093d7;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    z-index: 11;
+    letter-spacing: 1px;
+  }
+  &:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    transition: width 300ms ease-out;
+    background: #67cdff;
+  }
+  &:hover{
+    &:before{
+      content: '';
+      width: 100%;
+    }
+    span {
+      color: white;
+    }
+  }
+`
