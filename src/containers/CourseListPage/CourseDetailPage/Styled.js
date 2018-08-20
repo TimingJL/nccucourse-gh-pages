@@ -35,23 +35,23 @@ export const StyledCourseDetailPage = styled.div`
 
   .course-detail__button-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin: 20px 0px;
+    grid-template-columns: 1fr;
+    // margin: 20px 0px;
   }
 `;
 
 export const Button = styled.button`
   display: inline-block;
-  width: 300px;
+  width: 100%;
   height: 50px;
-  background: #22c0ff44;
+  background: #d4eaf6;
   position: relative;
   outline: none;
   border: none;
   cursor: pointer;
   span{
     font-size: 1.2em;
-    color: #0093d7;
+    color: #2c6fae;
     position: absolute;
     top: 50%;
     left: 50%;
