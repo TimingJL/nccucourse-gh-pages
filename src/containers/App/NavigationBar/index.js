@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import history from 'src/utils/history';
 import { StyledNavigationBar } from './Styled';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
@@ -20,6 +21,7 @@ class NavigationBar extends Component {
     this.handleOnSearchFocus = this.handleOnSearchFocus.bind(this);
     this.handleOnSearchBlur = this.handleOnSearchBlur.bind(this);
     this.handleOnSearchInput = this.handleOnSearchInput.bind(this);
+    this.handleOnBrandingClick = this.handleOnBrandingClick.bind(this);
   }
 
   handleOnSearchFocus() {
@@ -45,6 +47,10 @@ class NavigationBar extends Component {
     handleOnFetchSearchParam(params, semester);
   }
 
+  handleOnBrandingClick() {
+    history.push('/');
+  }
+
   render() {
     const {
       isFocus,
@@ -54,7 +60,7 @@ class NavigationBar extends Component {
       <StyledNavigationBar isFocus={isFocus} className={'app-wrapper__navbar'}>
         <div className="navigation-bar__navbar-wrapper">
           <div className="navigation-bar__navbar-grid">
-            <div className="navigation-bar__branding">NCCU<span>course</span></div>
+            <div className="navigation-bar__branding" onClick={this.handleOnBrandingClick}>NCCU<span>course</span></div>
             <div className="navigation-bar__search-wrapper">
               <input
                 onChange={this.handleOnSearchInput}

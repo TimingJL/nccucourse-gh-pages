@@ -32,6 +32,7 @@ export const StyledNavigationBar = styled.div`
         font-weight: 900;
         line-height: ${NAVIGATION_BAR_HEIGHT}px;
         font-family: 'Archivo Black', sans-serif;
+        cursor: pointer;
         span {
             font-family: 'Francois One', sans-serif;
             color: #5383d3;
