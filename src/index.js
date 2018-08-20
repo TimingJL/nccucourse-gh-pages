@@ -7,7 +7,6 @@ import App from 'containers/App';
 import store from 'src/store';
 import history from 'src/utils/history';
 import registerServiceWorker from './registerServiceWorker';
-// import 'rxjs/Rx';
 
 ReactDOM.render(
   <Provider store={store}>

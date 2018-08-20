@@ -35,8 +35,22 @@ export const StyledCourseDetailPage = styled.div`
 
   .course-detail__button-container {
     display: grid;
-    grid-template-columns: 1fr;
-    // margin: 20px 0px;
+    /* grid-gap: { grid-row-gap } { grid-column-gap }; */
+    grid-gap: 10px 10px;
+
+    ${(props) => {
+      if (props.numOfBtn < 3) {
+        return `
+          grid-template-columns: repeat(${props.numOfBtn}, 1fr);
+        `;
+      } else {
+        return `
+          grid-template-columns: repeat(2, 1fr);
+        `;
+      }
+    }}
+
+    margin: 20px 0px;
   }
 `;
 

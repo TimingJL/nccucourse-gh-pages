@@ -8,6 +8,7 @@ import {
 } from 'containers/CourseListPage/selectors';
 import { routePathConfig } from 'containers/RoutePathConfig';
 import { StyledCourseDetailPage, Button } from './Styled';
+import { findAttributeInEvent } from 'src/utils/event';
 
 class CourseDetailPage extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class CourseDetailPage extends Component {
       course: null,
     };
     this.handleOnPageOpen = this.handleOnPageOpen.bind(this);
+    this.handleOnEvaluationClick = this.handleOnEvaluationClick.bind(this);
   }
 
   componentDidMount() {
@@ -45,6 +47,20 @@ class CourseDetailPage extends Component {
     window.open(course.get('agenda'));
   }
 
+  handleOnEvaluationClick(event) {
+    const {
+      semester,
+    } = this.state;
+    const instrName = findAttributeInEvent(event, 'data-instructor');
+    history.push({
+      pathname: `${routePathConfig.evaluation}/${instrName}`,
+      state: {
+        instructor: instrName,
+        semester,
+      }
+    });
+  }
+
   render() {
     const {
       course,
@@ -52,10 +68,10 @@ class CourseDetailPage extends Component {
     if (!course) {
       return null;
     }
-    // console.log(course.toJS());
+    const instrArr = course.get('instructor').split('、');
 
     return (
-      <StyledCourseDetailPage>
+      <StyledCourseDetailPage numOfBtn={instrArr.length + 1}>
         <div className="course-detail__title">{course.get('name')}</div>
 
         <div className="course-detail__row">
@@ -128,6 +144,19 @@ class CourseDetailPage extends Component {
 
         <div className="course-detail__button-container">
           <Button onClick={this.handleOnPageOpen}><span>教學大綱</span></Button>
+          {
+            instrArr.map((instr) => {
+              return (
+                <Button
+                  key={instr}
+                  data-instructor={instr}
+                  onClick={this.handleOnEvaluationClick}
+                >
+                  <span>{instr}</span>
+                </Button>
+              );
+            })
+          }
         </div>
       </StyledCourseDetailPage>
     );

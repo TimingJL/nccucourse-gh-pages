@@ -12,6 +12,11 @@ export const selectCoursesList = () => createSelector(
   (state) => state.get('coursesList')
 );
 
+export const selectEvaluationList = () => createSelector(
+  courseListPageStore,
+  (state) => state.get('evaluationList')
+);
+
 export const selectSearchParam = () => createSelector(
   courseListPageStore,
   (state) => state.get('searchParam')

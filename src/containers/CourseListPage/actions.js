@@ -35,10 +35,9 @@ export const setCourses = ({semester, courses}) => ({
   }
 });
 
-export const setEvaluation = ({semester, evaluation}) => ({
+export const setEvaluation = ({evaluation}) => ({
   type: SET_EVALUATION,
   payload: {
-    semester,
     evaluation,
   }
 });

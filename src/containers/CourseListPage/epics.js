@@ -78,10 +78,7 @@ const fetchEvaluationDataEpic = (action$) => (
         url: `${COURSE_DATA_DOMAIN}/${semester}/evaluation.json`,
       })
         .flatMap((evaluation) => {
-          return Observable.of(setEvaluation({
-            semester,
-            evaluation,
-          }));
+          return Observable.of(setEvaluation({evaluation}));
         })
         .catch(fetchErrorEpic)
     })
