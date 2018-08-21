@@ -74,7 +74,7 @@ class EvaluationPage extends Component {
 
                 <div className="evaluation__course-info-item">
                   <div>評分: </div>
-                  <div>{course.get('student_num')}</div>
+                  <div>{course.get('score')}</div>
                 </div>
               </div>
               <ul className="evaluation__course-comment-wrapper">
