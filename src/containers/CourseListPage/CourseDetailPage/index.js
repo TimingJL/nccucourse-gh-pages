@@ -57,7 +57,7 @@ class CourseDetailPage extends Component {
       state: {
         instructor: instrName,
         semester,
-      }
+      },
     });
   }
 

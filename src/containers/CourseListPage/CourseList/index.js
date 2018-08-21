@@ -34,12 +34,16 @@ class CourseList extends Component {
     const dataType = findAttributeInEvent(event, 'data-type');
     if (dataType === 'row'){
       const courseId = findAttributeInEvent(event, 'data-courseid');
+      const name = findAttributeInEvent(event, 'data-name');
+      const instructor = findAttributeInEvent(event, 'data-instructor');
+      const searchParam = `?course=${name}&instructor=${instructor}`;
       history.push({
         pathname: `${window.location.pathname}/${courseId}`,
         state: {
           courseid: courseId,
           semester: semester,
         },
+        search: searchParam,
       });
     }
   }
@@ -57,9 +61,9 @@ class CourseList extends Component {
       <StyledCourseList>
         {
           dataList.slice(start, end).map((course, index) => (
-            <li key={`${course.get('id')}/${index}`} data-type="row" className="course-list__row" data-courseid={course.get('id')} onClick={this.handleOnCourseClicked}>
+            <li key={`${course.get('id')}/${index}`} data-type="row" className="course-list__row" data-courseid={course.get('id')} data-name={course.get('name')} data-instructor={course.get('instructor')} onClick={this.handleOnCourseClicked}>
               <div className="course-list__info">
-                <input readOnly data-type="courseid" className="course-list__id" data-courseid={course.get('id')} value={course.get('id')} onClick={this.handleOnCourseIdCopy} />
+                <input readOnly data-type="courseid" className="course-list__id" data-courseid={course.get('id')}  value={course.get('id')} onClick={this.handleOnCourseIdCopy} />
                 <div className="course-list__name">{course.get('name')}</div>
                 <div className="course-list__instructor">{course.get('instructor')}</div>
               </div>
