@@ -15,10 +15,24 @@ export const StyledPagination = styled.div`
     padding: 0 5px;
   }
 
-  .pagination__pageselect-container {
+  .pagination__pageselect-grid {
     display: grid;
-    justify-content: right;
-    margin: 10px 10px;
+    grid-template-columns: 1fr;
+    justify-items: end;
+    margin: 20px 0px;
+  }
+
+  .pagination__pageselect-group {
+    display: flex;
+    vertical-align: middle;
+  }
+
+  .pagination__pageselect-btn {
+    width: 40px;
+    line-height: 26px;
+    font-size: 1.5em;
+    text-align: center;
+    cursor: pointer;
   }
 
   .pagination__pageselect {
