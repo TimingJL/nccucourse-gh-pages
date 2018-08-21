@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Pagination from 'components/Pagination';
+import CourseCategory from 'containers/CourseListPage/CourseCategory';
 import { routePathConfig } from 'containers/RoutePathConfig';
 import { findAttributeInEvent } from 'src/utils/event';
 import history from 'src/utils/history';
@@ -110,6 +111,7 @@ class CourseListPage extends Component {
           <button data-semester="10701" onClick={this.handleOnSemesterSelect}>10701</button>
           <button data-semester="10702" onClick={this.handleOnSemesterSelect}>10702</button>
         </div> */}
+        <CourseCategory {...this.props} />
         {
           Boolean(courseList.size && courses) ?
           <PaginatedCourseList

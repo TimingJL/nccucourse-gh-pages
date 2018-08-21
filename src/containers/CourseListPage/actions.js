@@ -47,11 +47,12 @@ export const setSemesterList = (semesterList) => ({
   payload: semesterList,
 });
 
-export const fetchSearchParam = (params, semester) => ({
+export const fetchSearchParam = (params, semester, actionType) => ({
   type: FETCH_SEARCH_PARAM,
   payload: {
     params,
     semester,
+    actionType,
   },
 });
 

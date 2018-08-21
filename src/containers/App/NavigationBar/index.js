@@ -5,6 +5,7 @@ import { StyledNavigationBar } from './Styled';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { fetchSearchParam } from 'containers/CourseListPage/actions';
+import { findAttributeInEvent } from 'src/utils/event';
 
 class NavigationBar extends Component {
   static propTypes = {
@@ -41,10 +42,11 @@ class NavigationBar extends Component {
       handleOnFetchSearchParam,
       location,
     } = this.props;
+    const actionType = findAttributeInEvent(event, 'data-actiontype')
     const inputValue = event.currentTarget.value;
     const params = inputValue.split(" ").filter((item) => Boolean(item));
     const semester = location.state.semester;
-    handleOnFetchSearchParam(params, semester);
+    handleOnFetchSearchParam(params, semester, actionType);
   }
 
   handleOnBrandingClick() {
@@ -67,6 +69,7 @@ class NavigationBar extends Component {
                 onFocus={this.handleOnSearchFocus}
                 onBlur={this.handleOnSearchBlur}
                 className="navigation-bar__search-input-box"
+                data-actiontype='search'
                 type="text"
                 placeholder="Search.."
                 name="search"
@@ -85,7 +88,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleOnFetchSearchParam: (params, semester) => dispatch(fetchSearchParam(params, semester)),
+  handleOnFetchSearchParam: (params, semester, actionType) => dispatch(fetchSearchParam(params, semester, actionType)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar);

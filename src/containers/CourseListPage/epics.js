@@ -86,14 +86,15 @@ const fetchEvaluationDataEpic = (action$) => (
 
 const fetchSearchParamEpic = (action$) => (
   action$.ofType(FETCH_SEARCH_PARAM)
-    .debounceTime(500 /* ms */)
+    .debounceTime(250 /* ms */)
     .switchMap(({ payload }) => {
       const {
         params,
         semester,
+        actionType,
       } = payload;
       let searchParam = '?';
-      params.map((param) => `search=${param}`)
+      params.map((param) => `${actionType}=${param}`)
         .forEach((param, index) => {
           if (index === 0) {
             searchParam = searchParam.concat(param);
