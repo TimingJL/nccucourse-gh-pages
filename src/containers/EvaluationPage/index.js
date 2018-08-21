@@ -3,7 +3,7 @@ import history from 'src/utils/history';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { selectEvaluationList } from 'containers/CourseListPage/selectors';
-import { StyledEvaluationPage } from './Styled';
+import { StyledEvaluationPage, StyledNoData } from './Styled';
 
 class EvaluationPage extends Component {
   constructor(props) {
@@ -20,17 +20,27 @@ class EvaluationPage extends Component {
     const {
       evaluationList,
     } = this.props;
-    if(!evaluationList.size) {
+    if (!evaluationList.size) {
       history.push('/');
     }
   }
 
   render() {
     const {
+      match,
+    } = this.props;
+    const {
       evaluation,
     } = this.state;
-    if(!evaluation) {
-      return null;
+    if (!evaluation) {
+      const instrName = match.params.instructor;
+      return (
+        <StyledNoData>
+          <div>
+            無 <span>{instrName}</span> 之教師評鑑資料
+          </div>
+        </StyledNoData>
+      );
     }
 
     return (
@@ -68,13 +78,13 @@ class EvaluationPage extends Component {
                 </div>
               </div>
               <ul className="evaluation__course-comment-wrapper">
-                  {
-                    course.get('comments').size &&
-                    course.get('comments').map((comment, index) => (
-                      <li key={`${index}`} className="evaluation__course-comment">{comment}</li>
-                    ))
-                  }
-                </ul>
+                {
+                  course.get('comments').size &&
+                  course.get('comments').map((comment, index) => (
+                    <li key={`${index}`} className="evaluation__course-comment">{comment}</li>
+                  ))
+                }
+              </ul>
             </div>
           ))
         }

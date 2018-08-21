@@ -55,3 +55,18 @@ export const StyledEvaluationPage = styled.div`
     }
   }
 `;
+
+export const StyledNoData = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 2em;
+  div{
+    text-align: center;
+    padding: 0px 15px;
+  }
+  span{
+    font-weight: 900;
+  }
+`;
