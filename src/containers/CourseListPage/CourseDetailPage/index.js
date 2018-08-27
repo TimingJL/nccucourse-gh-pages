@@ -9,6 +9,7 @@ import {
 import { routePathConfig } from 'containers/RoutePathConfig';
 import { StyledCourseDetailPage, Button } from './Styled';
 import { findAttributeInEvent } from 'src/utils/event';
+import gtag from 'src/utils/tracking';
 
 class CourseDetailPage extends Component {
   constructor(props) {
@@ -44,14 +45,30 @@ class CourseDetailPage extends Component {
     const {
       course,
     } = this.state;
+    const courseName = course.get('name');
+    const instrName = course.get('instructor');
+
+    gtag('event', '點擊教學大綱', {
+      'event_category' : courseName,
+      'event_label': instrName,
+    });
+
     window.open(course.get('agenda'));
   }
 
   handleOnEvaluationClick(event) {
     const {
       semester,
+      course,
     } = this.state;
+    const courseName = course.get('name');
     const instrName = findAttributeInEvent(event, 'data-instructor');
+
+    gtag('event', '點擊教師評鑑', {
+      'event_category' : courseName,
+      'event_label': instrName,
+    });
+
     history.push({
       pathname: `${routePathConfig.evaluation}/${instrName}`,
       state: {

@@ -4,11 +4,7 @@ import message from 'antd/lib/message';
 import history from 'src/utils/history';
 import { findAttributeInEvent } from 'src/utils/event';
 import { StyledCourseList } from './Styled';
-
-let dataLayer = window.dataLayer || [];
-function gtag() { dataLayer.push(arguments); }
-gtag('js', new Date());
-gtag('config', 'UA-105071529-3');
+import gtag from 'src/utils/tracking';
 
 class CourseList extends Component {
   constructor(props) {
@@ -27,12 +23,14 @@ class CourseList extends Component {
 
   handleOnCourseIdCopy(event) {
     const courseId = findAttributeInEvent(event, 'data-courseid');
+    const name = findAttributeInEvent(event, 'data-name');
     event.currentTarget.select();
     document.execCommand("copy");
     message.success(`${courseId} Copied!`);
 
     gtag('event', 'onCourseIdCopy', {
-      'id': courseId,
+      'event_category' : name,
+      'event_label': courseId,
     });
   }
 
@@ -46,6 +44,10 @@ class CourseList extends Component {
       const name = findAttributeInEvent(event, 'data-name');
       const instructor = findAttributeInEvent(event, 'data-instructor');
       const searchParam = `?course=${name}&instructor=${instructor}`;
+      gtag('event', 'view_course_detail', {
+        'event_category' : name,
+        'event_label': courseId,
+      });
       history.push({
         pathname: `${window.location.pathname}/${courseId}`,
         state: {
@@ -72,7 +74,7 @@ class CourseList extends Component {
           dataList.slice(start, end).map((course, index) => (
             <li key={`${course.get('id')}/${index}`} data-type="row" className="course-list__row" data-courseid={course.get('id')} data-name={course.get('name')} data-instructor={course.get('instructor')} onClick={this.handleOnCourseClicked}>
               <div className="course-list__info">
-                <input readOnly data-type="courseid" className="course-list__id" data-courseid={course.get('id')} value={course.get('id')} onClick={this.handleOnCourseIdCopy} />
+                <input readOnly data-type="courseid" className="course-list__id" data-courseid={course.get('id')} data-name={course.get('name')} value={course.get('id')} onClick={this.handleOnCourseIdCopy} />
                 <div className="course-list__name">{course.get('name')}</div>
                 <div className="course-list__instructor">{course.get('instructor')}</div>
               </div>

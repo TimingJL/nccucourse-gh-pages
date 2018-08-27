@@ -3,6 +3,7 @@ import { COURSE_DATA_DOMAIN } from 'src/config';
 import { request, fetchErrorEpic } from 'src/utils/request';
 import history from 'src/utils/history';
 import { routePathConfig } from 'containers/RoutePathConfig';
+import gtag from 'src/utils/tracking';
 
 import {
   FETCH_COURSES_DATA_LIST,
@@ -78,7 +79,7 @@ const fetchEvaluationDataEpic = (action$) => (
         url: `${COURSE_DATA_DOMAIN}/${semester}/evaluation.json`,
       })
         .flatMap((evaluation) => {
-          return Observable.of(setEvaluation({evaluation}));
+          return Observable.of(setEvaluation({ evaluation }));
         })
         .catch(fetchErrorEpic)
     })
@@ -102,6 +103,11 @@ const fetchSearchParamEpic = (action$) => (
             searchParam = searchParam.concat(`&${param}`);
           }
         });
+
+      gtag('event', actionType, {
+        'event_category': searchParam,
+        'event_label': semester,
+      });
 
       history.push({
         pathname: `${routePathConfig.semester}/${semester}`,

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { StyledDropdown } from './Styled';
 import { findAttributeInEvent } from 'src/utils/event';
+import gtag from 'src/utils/tracking';
 
 class PageSelect extends Component {
   static propTypes = {
@@ -37,6 +38,10 @@ class PageSelect extends Component {
       handleOnPageSelect,
     } = this.props;
     const clickedPageNumber = findAttributeInEvent(event, 'data-pagenumber');
+    gtag('event', 'page number click', {
+      'event_category' : 'select page',
+      'event_label': clickedPageNumber,
+    });
     this.setState({ isDropdownOpwn: false });
     handleOnPageSelect(clickedPageNumber);
   }

@@ -5,6 +5,7 @@ import { findAttributeInEvent } from 'src/utils/event';
 import {
   StyledPagination,
 } from './Styled';
+import gtag from 'src/utils/tracking';
 
 const Pagination = (ListComponent) => class extends Component {
   constructor(props) {
@@ -34,8 +35,16 @@ const Pagination = (ListComponent) => class extends Component {
     const angleType = findAttributeInEvent(event, 'data-angle');
     let delta = 0;
     if (angleType === 'right' && defaultCurrentPage < pageRange) {
+      gtag('event', 'angle icon click', {
+        'event_category' : 'next page',
+        'event_label': defaultCurrentPage,
+      });
       delta = 1;
     } else if (angleType === 'left' && defaultCurrentPage > 1) {
+      gtag('event', 'angle icon click', {
+        'event_category' : 'prev page',
+        'event_label': defaultCurrentPage,
+      });
       delta = -1;
     }
     this.setState({

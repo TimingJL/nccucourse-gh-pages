@@ -104,7 +104,11 @@ class CourseListPage extends Component {
     } = this.state;
     const semester = currentSemester ? currentSemester : match.params.semester;
     const courses = coursesFilter(courseList, semester, searchParams);
-
+    if (courses && courses.size) {
+      const session = courses.map((course) => course.get('session_class')).toJS();
+      const session_set = new Set(session);
+      debugger;
+    }
     return (
       <StyledCourseListPage isLoading={!Boolean(courseList.size && courses)}>
         {/* <div style={{display: 'flex'}}>
