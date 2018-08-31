@@ -71,7 +71,7 @@ class NavigationBar extends Component {
                 className="navigation-bar__search-input-box"
                 data-actiontype='search'
                 type="text"
-                placeholder="Search.."
+                placeholder="搜尋課名、教師、上課時間、科系、隨便你搜、愛怎麼搜就怎麼搜..."
                 name="search"
               />
               <i className="fas fa-search navigation-bar__search-icon"></i>
