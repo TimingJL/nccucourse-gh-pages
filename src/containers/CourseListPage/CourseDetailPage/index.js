@@ -49,7 +49,7 @@ class CourseDetailPage extends Component {
     const instrName = course.get('instructor');
 
     gtag('event', '點擊教學大綱', {
-      'event_category' : courseName,
+      'event_category': courseName,
       'event_label': instrName,
     });
 
@@ -65,7 +65,7 @@ class CourseDetailPage extends Component {
     const instrName = findAttributeInEvent(event, 'data-instructor');
 
     gtag('event', '點擊教師評鑑', {
-      'event_category' : courseName,
+      'event_category': courseName,
       'event_label': instrName,
     });
 
@@ -131,7 +131,14 @@ class CourseDetailPage extends Component {
 
         <div className="course-detail__row">
           <div className="course-detail__label">上課時間</div>
-          <div className="course-detail__value">星期{course.get('session_weekday')}, {course.get('session_class')}節</div>
+          <div className="course-detail__value">
+            {
+              course.get('session').map((session, index) => {
+                const comma = (index === 0) ? '' : '、';
+                return `${comma}${session.get('weekday')} ${session.get('class')}`
+              })
+            }
+          </div>
         </div>
 
         <div className="course-detail__row">

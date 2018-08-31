@@ -42,8 +42,8 @@ const coursesFilter = (courseList, semester, searchParams) => {
           (course.get('language').indexOf(param) > -1) ||
           (course.get('note').indexOf(param) > -1) ||
           (course.get('place').indexOf(param) > -1) ||
-          (course.get('session_class').indexOf(param) > -1) ||
-          (course.get('session_weekday').indexOf(param) > -1)
+          (course.get('session').map((session) => session.get('weekday')).join().indexOf(param) > -1) ||
+          (course.get('session').map((session) => session.get('class')).join().indexOf(param.toUpperCase()) > -1)
         ));
         return !matchArr.toJS().includes(false);
       })
@@ -107,7 +107,7 @@ class CourseListPage extends Component {
     if (courses && courses.size) {
       const session = courses.map((course) => course.get('session_class')).toJS();
       const session_set = new Set(session);
-      debugger;
+      // debugger;
     }
     return (
       <StyledCourseListPage isLoading={!Boolean(courseList.size && courses)}>

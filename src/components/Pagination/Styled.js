@@ -18,7 +18,7 @@ export const StyledPagination = styled.div`
   .pagination__pageselect-grid {
     display: grid;
     grid-template-columns: 1fr;
-    justify-items: end;
+    justify-items: center;
     margin: 20px 0px;
   }
 
