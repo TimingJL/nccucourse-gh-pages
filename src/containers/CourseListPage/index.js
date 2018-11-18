@@ -16,42 +16,17 @@ import {
   selectSemesterList,
   selectCoursesList,
   selectSearchParam,
+  selectSelectedSession,
 } from './selectors';
+import {
+  coursesFilter,
+  sessionFilter,
+} from './utils';
 import {
   StyledCourseListPage,
 } from './Styled';
 
 const PaginatedCourseList = Pagination(CourseList);
-
-const coursesFilter = (courseList, semester, searchParams) => {
-  if (searchParams.size) {
-    const result = courseList.getIn([semester, 'courses'])
-      .filter((course) => {
-        const matchArr = searchParams.map((param) => (
-          (course.get('id').indexOf(param) > -1) ||
-          (course.get('instructor').indexOf(param) > -1) ||
-          (course.get('instructor_eng').indexOf(param.toUpperCase()) > -1) ||
-          (course.get('name').indexOf(param) > -1) ||
-          (course.get('asgeneral').indexOf(param) > -1) ||
-          (course.get('change').indexOf(param) > -1) ||
-          (course.get('choose').indexOf(param) > -1) ||
-          (course.get('choose_eng').indexOf(param.toUpperCase()) > -1) ||
-          (course.get('name_eng').indexOf(param.toUpperCase()) > -1) ||
-          (course.get('coregeneral').indexOf(param) > -1) ||
-          (course.get('department').indexOf(param) > -1) ||
-          (course.get('generalclass').indexOf(param) > -1) ||
-          (course.get('language').indexOf(param) > -1) ||
-          (course.get('note').indexOf(param) > -1) ||
-          (course.get('place').indexOf(param) > -1) ||
-          (course.get('session').map((session) => session.get('weekday')).join().indexOf(param) > -1) ||
-          (course.get('session').map((session) => session.get('class')).join().indexOf(param.toUpperCase()) > -1)
-        ));
-        return !matchArr.toJS().includes(false);
-      })
-    return result;
-  }
-  return courseList.getIn([semester, 'courses']);
-}
 
 class CourseListPage extends Component {
   constructor(props) {
@@ -99,13 +74,19 @@ class CourseListPage extends Component {
       courseList,
       searchParams,
       match,
+      selectedSession,
     } = this.props;
     const {
       currentSemester,
     } = this.state;
     const semester = currentSemester ? currentSemester : match.params.semester;
-    const courses = coursesFilter(courseList, semester, searchParams);
-    debugger;
+    let courses;
+    if (courseList.size) {
+      courses = sessionFilter(
+        coursesFilter(courseList, semester, searchParams),
+        selectedSession
+      );
+    }
 
     return (
       <StyledCourseListPage isLoading={!Boolean(courseList.size && courses)}>
@@ -133,6 +114,7 @@ const mapStateToProps = createStructuredSelector({
   semesterList: selectSemesterList(),
   courseList: selectCoursesList(),
   searchParams: selectSearchParam(),
+  selectedSession: selectSelectedSession(),
 });
 
 const mapDispatchToProps = (dispatch) => ({
