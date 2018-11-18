@@ -7,6 +7,7 @@ import {
   SET_COURSES,
   SET_EVALUATION,
   SET_SEARCH_PARAM,
+  SET_SELECTED_SESSION,
 } from './constants';
 
 export const fetchCoursesDataList = () => ({
@@ -62,3 +63,8 @@ export const setSearchParam = (params) => ({
     params,
   },
 });
+
+export const setSelectedSession = (session) => ({
+  type: SET_SELECTED_SESSION,
+  payload: session,
+})

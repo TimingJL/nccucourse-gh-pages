@@ -27,7 +27,7 @@ export const StyledNavigationBar = styled.div`
 
     .navigation-bar__branding {
         color: white;
-        padding: 0 15px;
+        padding: 0 10px;
         font-size: 32px;
         font-weight: 900;
         line-height: ${NAVIGATION_BAR_HEIGHT}px;
