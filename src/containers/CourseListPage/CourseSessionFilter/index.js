@@ -26,9 +26,24 @@ class CourseSessionFilter extends Component {
   }
 
   render() {
+    const {
+      selectedSession,
+    } = this.props;
     return (
       <StyledCourseSessionFilter>
         <div className="course-session-filter__input-container">
+          {
+            selectedSession.map((session) => {
+              if (session.get('session').length) {
+                return (
+                  <div key={session} className="course-session-filter__condition-container">
+                    <span>{session.get('weekday')}</span>
+                    <span>{session.get('session')}</span>
+                  </div>
+                )
+              }
+            })
+          }
           <input
             type="text"
             className="course-session-filter__input-box"

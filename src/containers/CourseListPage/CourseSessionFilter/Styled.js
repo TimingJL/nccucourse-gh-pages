@@ -16,6 +16,15 @@ export const StyledCourseSessionFilter = styled.div`
     width: 100%;
     padding: 5px 10px;
   }
+
+  .course-session-filter__condition-container {
+    margin-left: 5px;
+    padding: 0px 10px;
+    border-radius: 50px;
+    background: #1890ff;
+    color: white;
+    letter-spacing: 0px;
+  }
 `;
 
 export const StyledTimetable = styled.div`

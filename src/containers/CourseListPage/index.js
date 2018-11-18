@@ -95,7 +95,7 @@ class CourseListPage extends Component {
           <button data-semester="10702" onClick={this.handleOnSemesterSelect}>10702</button>
         </div> */}
         <CourseCategory {...this.props} />
-        <CourseSessionFilter />
+        <CourseSessionFilter selectedSession={selectedSession} />
         {
           Boolean(courseList.size && courses) ?
           <PaginatedCourseList
