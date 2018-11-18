@@ -6,6 +6,9 @@ import {
   SET_EVALUATION,
   SET_SEARCH_PARAM,
   SET_SELECTED_SESSION,
+  SET_SELECT_ALL_SESSION,
+
+  SESSIONS,
 } from './constants';
 
 const initialState = fromJS({
@@ -64,10 +67,9 @@ export default (state = initialState, action) => {
       } else {
         updatedSelectedSession = selectedSession.map((session) => {
           if (session.get('weekday') === action.payload.weekday) {
-            const sessions = ['1', '2', '3', '4', 'C', 'D', '5', '6', '7', '8', '9', 'E', 'F', 'G', 'H'];
             const updatedSession = [...`${session.get('session')}${action.payload.session}`]
               .sort((a, b) => {
-                if (sessions.indexOf(a) > sessions.indexOf(b)) {
+                if (SESSIONS.indexOf(a) > SESSIONS.indexOf(b)) {
                   return 1;
                 }
                 return -1;
@@ -82,6 +84,31 @@ export default (state = initialState, action) => {
           return session;
         })
       }
+      return state.set('selectedSession', updatedSelectedSession);
+    }
+
+    case SET_SELECT_ALL_SESSION: {
+      let updatedSelectedSession;
+      const selectedSession = state.get('selectedSession');
+      updatedSelectedSession = selectedSession.map((session) => {
+        if (session.get('weekday') === action.payload.weekday) {
+          if (session.get('session').length === SESSIONS.length) {
+            // clear all
+            return Map({
+              weekday: session.get('weekday'),
+              session: '',
+            });
+          }
+          // select all
+          return Map({
+            weekday: session.get('weekday'),
+            session: SESSIONS
+              .join()
+              .replace(/,/g, ''),
+          });
+        }
+        return session;
+      });
       return state.set('selectedSession', updatedSelectedSession);
     }
 

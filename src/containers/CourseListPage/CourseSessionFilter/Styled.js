@@ -35,6 +35,11 @@ export const StyledTimetable = styled.div`
   .time-table__header-item {
     line-height: 30px;
     font-size: 1.2em;
+    cursor: pointer;
+    &:hover {
+      color: white;
+      background: #1890ff;
+    }
   }
 
   .time-table__column {

@@ -8,6 +8,7 @@ import {
   SET_EVALUATION,
   SET_SEARCH_PARAM,
   SET_SELECTED_SESSION,
+  SET_SELECT_ALL_SESSION,
 } from './constants';
 
 export const fetchCoursesDataList = () => ({
@@ -67,4 +68,11 @@ export const setSearchParam = (params) => ({
 export const setSelectedSession = (session) => ({
   type: SET_SELECTED_SESSION,
   payload: session,
+})
+
+export const setSelectAllSession = (weekday) => ({
+  type: SET_SELECT_ALL_SESSION,
+  payload: {
+    weekday,
+  },
 })

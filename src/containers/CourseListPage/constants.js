@@ -11,3 +11,6 @@ export const SET_EVALUATION = 'SET_EVALUATION';
 export const SET_SEARCH_PARAM = 'SET_SEARCH_PARAM';
 
 export const SET_SELECTED_SESSION = 'SET_SELECTED_SESSION';
+export const SET_SELECT_ALL_SESSION = 'SET_SELECT_ALL_SESSION';
+
+export const SESSIONS = ['1', '2', '3', '4', 'C', 'D', '5', '6', '7', '8', '9', 'E', 'F', 'G', 'H'];

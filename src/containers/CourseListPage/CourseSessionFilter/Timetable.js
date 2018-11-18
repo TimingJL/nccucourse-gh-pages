@@ -5,7 +5,10 @@ import { connect } from 'react-redux';
 import { fromJS } from 'immutable';
 import { findAttributeInEvent } from 'src/utils/event';
 import { StyledTimetable } from './Styled';
-import { setSelectedSession } from 'containers/CourseListPage/actions';
+import {
+  setSelectedSession,
+  setSelectAllSession,
+} from 'containers/CourseListPage/actions';
 import {
   selectSelectedSession,
 } from 'containers/CourseListPage/selectors'
@@ -50,6 +53,14 @@ class Timetable extends Component {
     });
   }
 
+  handleOnSelectAllSession = (event) => {
+    const {
+      handleSelectAllSession,
+    } = this.props;
+    const weekday = findAttributeInEvent(event, 'data-weekday');
+    handleSelectAllSession(weekday);
+  }
+
   render() {
     const {
       weekdays,
@@ -63,7 +74,14 @@ class Timetable extends Component {
       <StyledTimetable>
         {
           weekdays.map((weekday) => (
-            <div key={weekday} className="time-table__header-item">{weekday}</div>
+            <div
+              key={weekday}
+              data-weekday={weekday}
+              className="time-table__header-item"
+              onClick={this.handleOnSelectAllSession}
+            >
+                {weekday}
+            </div>
           ))
         }
         {
@@ -96,6 +114,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
   handleSetSelectedSession: (findSession) => dispatch(setSelectedSession(findSession)),
+  handleSelectAllSession: (weekday) => dispatch(setSelectAllSession(weekday)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timetable);
